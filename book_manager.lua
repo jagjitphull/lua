@@ -41,3 +41,21 @@ elseif command == "list" then
 else
     return "Invalid command. Use 'add', 'get', or 'list'."
 end
+
+
+--[[
+Load the Script into Redis
+$ redis-cli SCRIPT LOAD "$(cat book_manager.lua)"
+
+Execute the Script
+Add a Book: 
+$ redis-cli EVALSHA <SHA1_HASH> 0 add 978-3-16-148410-0 "The Great Gatsby" "F. Scott Fitzgerald" 1925
+
+Retrieve a Book:
+
+$ redis-cli EVALSHA <SHA1_HASH> 0 get 978-3-16-148410-0
+
+List All Books:
+
+$ redis-cli EVALSHA <SHA1_HASH> 0 list
+]]
