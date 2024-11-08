@@ -1,3 +1,16 @@
+-- Mock the redis.call function for local testing
+redis = {}
+redis.store = {["my_counter"] = "0"}  -- Store initial values
+
+function redis.call(command, key, value)
+    if command == "GET" then
+        return redis.store[key] or "0"
+    elseif command == "SET" then
+        redis.store[key] = tostring(value)
+    end
+end
+
+
 -- Define the main function for incrementing a counter
 local function increment_counter(key, increment)
     print("Starting script")  -- Debug print for logging
@@ -22,3 +35,4 @@ local key = "my_counter"
 local increment = 5
 local result = increment_counter(key, increment)
 print("Script result:", result)
+
